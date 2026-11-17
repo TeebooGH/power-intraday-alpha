@@ -5,7 +5,7 @@ import numpy as np
 from scipy.optimize import minimize
 
 from .impact import LOOKBACK, Profiles, SqrtConditional
-from .sim import ProductDay, Simulator
+from .sim import ProductDay
 
 
 def forecast_curves(prof: Profiles, pdy: ProductDay, start: int):

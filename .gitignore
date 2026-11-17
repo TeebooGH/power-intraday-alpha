@@ -2,6 +2,12 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.ruff_cache/
 .DS_Store
 .idea/
 _to_delete/
+
+# personal working material, kept local
+tp/
+TP.md
+uv_init_help.md

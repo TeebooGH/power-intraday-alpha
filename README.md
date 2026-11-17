@@ -1,5 +1,7 @@
 # power-intraday-alpha — Module 1: market impact & execution on continuous intraday power
 
+[![CI](https://github.com/TeebooGH/power-intraday-alpha/actions/workflows/ci.yml/badge.svg)](https://github.com/TeebooGH/power-intraday-alpha/actions/workflows/ci.yml)
+
 Calibrating a market impact model for the continuous intraday power market, then using it to
 schedule the execution of a position before gate closure.
 
@@ -16,7 +18,7 @@ Requires [uv](https://docs.astral.sh/uv/).
 
 ```bash
 uv sync                      # creates .venv from uv.lock
-uv run power-intraday-alpha  # ~15 s, writes results/metrics.json and results/summary.png
+uv run power-intraday-alpha  # ~20 s, writes results/metrics.json and results/summary.png
 uv run pytest                # unit tests
 ```
 
@@ -50,9 +52,16 @@ features, models M0–M3), `execution.py` (schedules), `experiments.py` (everyth
 Conditioning on liquidity cuts the out-of-sample error on expected cost by **40%** versus the
 constant-liquidity square-root law.
 
-**Parameter recovery.** Fitted on the noise-free cost, the impact exponent comes out at δ =
-0.55 (± 0.01), against a true value of 0.5. Fitted on noisy realised costs with estimated
-volatility, it rises to 0.70 (± 0.05), an errors-in-variables bias to keep in mind on real data.
+**Parameter recovery.** M3 is a reduced form of the simulator's propagator: only its impact
+exponent δ has a true counterpart (δ = 0.5). Fitted on the noise-free expected cost, δ = 0.48 with
+the simulator's true volume and volatility, and 0.55 (± 0.01) with the ex-ante forecasts the model
+actually uses. That +0.07 shift is the errors-in-variables effect of forecasting liquidity.
+
+Fitted on noisy realised costs, δ = 0.70, with a 95% CI of [0.60, 0.84] from a bootstrap over
+days. `curve_fit`'s standard error (± 0.05) is too optimistic, because orders on the same
+product-day share one price path. The same jump appears with the true regressors (0.48 to 0.60),
+so it is estimation noise, not an errors-in-variables bias. On real data, where only realised
+costs exist, expect the exponent to be weakly identified.
 
 **2. Execution of a 100 MWh buy** (100 out-of-sample days × 24 products, decision 7 h before
 gate closure)
@@ -81,3 +90,7 @@ intervals that exclude zero (bootstrap by day, see `results/metrics.json`).
   between metaorders.
 - The impact model is calibrated at the metaorder level. A child-order-level propagator
   calibration would let the optimiser account for impact decay directly.
+
+## License
+
+MIT, see [`LICENSE`](LICENSE).
