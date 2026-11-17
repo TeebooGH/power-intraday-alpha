@@ -1,0 +1,31 @@
+[project]
+name = "power-intraday-alpha"
+version = "0.1.0"
+description = "Market impact calibration and execution on continuous intraday power (simulation study)"
+readme = "README.md"
+authors = [
+    { name = "Thibaud OU", email = "thibaud.ou@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "ipykernel>=7.3.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.4.6",
+    "pandas>=3.0.6",
+    "scikit-learn>=1.9.1",
+    "scipy>=1.14",
+    "seaborn>=0.13.2",
+]
+
+[project.scripts]
+power-intraday-alpha = "power_intraday_alpha:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

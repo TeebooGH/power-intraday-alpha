@@ -1,0 +1,155 @@
+{
+  "n_metaorders": 24000,
+  "n_days": 250,
+  "walk_forward": {
+    "first_test_day": 100,
+    "refit_every_days": 25
+  },
+  "calibration_oos": [
+    {
+      "model": "M0 constant cost",
+      "mae_vs_expected_cost": 0.4406201422354387,
+      "mae_vs_realised_cost": 1.42575206702585,
+      "r2_realised": -8.600580980000494e-05
+    },
+    {
+      "model": "M1 linear in Q",
+      "mae_vs_expected_cost": 0.34555062442395995,
+      "mae_vs_realised_cost": 1.3950828468851064,
+      "r2_realised": 0.03582341138198819
+    },
+    {
+      "model": "M2 sqrt law, constant liquidity",
+      "mae_vs_expected_cost": 0.3386866646776073,
+      "mae_vs_realised_cost": 1.394315279274508,
+      "r2_realised": 0.03838027012976308
+    },
+    {
+      "model": "M3 participation-rate law, liquidity-conditioned",
+      "mae_vs_expected_cost": 0.20154957919959218,
+      "mae_vs_realised_cost": 1.3589127787580517,
+      "r2_realised": 0.06745633876782553
+    }
+  ],
+  "m3_params_on_realised_cost": {
+    "a": 2.5310031942483264,
+    "Y": 0.2829279087885226,
+    "delta": 0.7007805614799956,
+    "gamma": 0.9242287286291346,
+    "se": [
+      0.1046966283205364,
+      0.05437306009739504,
+      0.046247338180468694,
+      0.05618867843487442
+    ]
+  },
+  "m3_params_on_expected_cost": {
+    "a": 2.5483190072947486,
+    "Y": 0.22578633204168272,
+    "delta": 0.5503093815641418,
+    "gamma": 0.8976231187761875,
+    "se": [
+      0.01555025261108731,
+      0.006530149022873922,
+      0.006080730516471936,
+      0.008300268686835772
+    ]
+  },
+  "true_instantaneous_delta": 0.5,
+  "execution": {
+    "position_mwh": 100.0,
+    "start_hours_before_close": 7.0,
+    "test_days": 100,
+    "products": 24,
+    "results": [
+      {
+        "schedule": "Last hour only",
+        "mean_cost": 1.3134219994686145,
+        "sd_cost": 6.752072906068564,
+        "expected_cost": 1.3183481278962939,
+        "diff_vs_twap": -1.248751993432514,
+        "diff_ci95": [
+          -1.4191555670060483,
+          -1.0829488984147007
+        ]
+      },
+      {
+        "schedule": "M3-selected window (kappa=0.25)",
+        "mean_cost": 1.3475048722772136,
+        "sd_cost": 6.791615709812313,
+        "expected_cost": 1.350971929537059,
+        "diff_vs_twap": -1.2146691206239149,
+        "diff_ci95": [
+          -1.387203789488325,
+          -1.0459665217244154
+        ]
+      },
+      {
+        "schedule": "Volume-weighted (last 2 h)",
+        "mean_cost": 1.6300378635239712,
+        "sd_cost": 6.430538959748083,
+        "expected_cost": 1.63158007874624,
+        "diff_vs_twap": -0.9321361293771571,
+        "diff_ci95": [
+          -1.0720277847094353,
+          -0.7921511030373568
+        ]
+      },
+      {
+        "schedule": "Volume-weighted (last 4 h)",
+        "mean_cost": 2.033910001600417,
+        "sd_cost": 5.882822138535963,
+        "expected_cost": 2.0602403850386177,
+        "diff_vs_twap": -0.5282639913007118,
+        "diff_ci95": [
+          -0.6262141401705585,
+          -0.43110268118842326
+        ]
+      },
+      {
+        "schedule": "M3-selected window (kappa=1)",
+        "mean_cost": 2.2735955800762815,
+        "sd_cost": 5.280196978563239,
+        "expected_cost": 2.2690039603227494,
+        "diff_vs_twap": -0.2885784128248468,
+        "diff_ci95": [
+          -0.3857997227720892,
+          -0.19480750643578512
+        ]
+      },
+      {
+        "schedule": "Per-bin optimiser (M3, instantaneous approx.)",
+        "mean_cost": 2.4809549271922395,
+        "sd_cost": 5.029685588629083,
+        "expected_cost": 2.5004182627242955,
+        "diff_vs_twap": -0.08121906570888861,
+        "diff_ci95": [
+          -0.13605347827621622,
+          -0.02678420249748112
+        ]
+      },
+      {
+        "schedule": "Volume-weighted (7 h)",
+        "mean_cost": 2.4898360570135067,
+        "sd_cost": 5.068743164082153,
+        "expected_cost": 2.505679824688926,
+        "diff_vs_twap": -0.07233793588762194,
+        "diff_ci95": [
+          -0.1306894553074714,
+          -0.012463986337346413
+        ]
+      },
+      {
+        "schedule": "TWAP (7 h)",
+        "mean_cost": 2.5621739929011285,
+        "sd_cost": 4.103899834574275,
+        "expected_cost": 2.575708521108964,
+        "diff_vs_twap": 0.0,
+        "diff_ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}
